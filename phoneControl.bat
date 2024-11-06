@@ -1,0 +1,1 @@
+dotnet D:\Documents\Projects\PhoneControlServer\PhoneControlServer\bin\Debug\net8.0-windows\PhoneControlServer.dll

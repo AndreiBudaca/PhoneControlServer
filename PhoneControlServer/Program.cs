@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace PhoneControll
 {
@@ -35,6 +34,7 @@ namespace PhoneControll
         Console.WriteLine("Client connected!");
 
         NetworkStream stream = client.GetStream();
+        string excess = string.Empty;
 
         while (client.Client.IsConnected())
         {
@@ -44,15 +44,23 @@ namespace PhoneControll
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             if (bytesRead > 0)
             {
-              string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+              string message = excess + Encoding.ASCII.GetString(buffer, 0, bytesRead);
+              excess = string.Empty;
+
               var jsons = message.Split('}', StringSplitOptions.RemoveEmptyEntries).Select(message => message + "}").ToList();
 
               foreach (var json in jsons)
               {
-                var controlEvent = JsonDocument.Parse(json).Deserialize(typeof(ControlEvent)) as ControlEvent;
-                if (controlEvent != null)
+                try
                 {
-                  ControlHandlerFactory.GetControlHandler(controlEvent.EventType)?.Handle(controlEvent.Data1, controlEvent.Data2);
+                  if (JsonDocument.Parse(json).Deserialize(typeof(ControlEvent)) is ControlEvent controlEvent)
+                  {
+                    ControlHandlerFactory.GetControlHandler(controlEvent.EventType)?.Handle(controlEvent.Data1, controlEvent.Data2);
+                  }
+                }
+                catch (JsonException)
+                {
+                  excess += json[..^1];
                 }
               }
             }

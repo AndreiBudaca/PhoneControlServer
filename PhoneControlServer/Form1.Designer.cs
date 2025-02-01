@@ -28,11 +28,23 @@
     /// </summary>
     private void InitializeComponent()
     {
+      components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       NetworkComunicationWorker = new System.ComponentModel.BackgroundWorker();
       ControlHandlerWorker = new System.ComponentModel.BackgroundWorker();
       titleLabel = new Label();
-      startButton = new Button();
+      label_connected_clients = new Label();
+      label_connected_client_count = new Label();
+      label1 = new Label();
+      label_ip_addr = new Label();
+      notifyIcon = new NotifyIcon(components);
       SuspendLayout();
+      // 
+      // NetworkComunicationWorker
+      // 
+      NetworkComunicationWorker.WorkerReportsProgress = true;
+      NetworkComunicationWorker.DoWork += NetworkComunicationWorker_DoWork;
+      NetworkComunicationWorker.ProgressChanged += NetworkComunicationWorker_ProgressChanged;
       // 
       // ControlHandlerWorker
       // 
@@ -48,25 +60,67 @@
       titleLabel.TabIndex = 0;
       titleLabel.Text = "Phone Control";
       // 
-      // startButton
+      // label_connected_clients
       // 
-      startButton.Location = new Point(210, 249);
-      startButton.Name = "startButton";
-      startButton.Size = new Size(75, 23);
-      startButton.TabIndex = 1;
-      startButton.Text = "Start";
-      startButton.UseVisualStyleBackColor = true;
-      startButton.Click += startButton_Click;
+      label_connected_clients.AutoSize = true;
+      label_connected_clients.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+      label_connected_clients.Location = new Point(12, 215);
+      label_connected_clients.Name = "label_connected_clients";
+      label_connected_clients.Size = new Size(233, 37);
+      label_connected_clients.TabIndex = 1;
+      label_connected_clients.Text = "Connected clients:";
+      // 
+      // label_connected_client_count
+      // 
+      label_connected_client_count.AutoSize = true;
+      label_connected_client_count.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+      label_connected_client_count.Location = new Point(251, 215);
+      label_connected_client_count.Name = "label_connected_client_count";
+      label_connected_client_count.Size = new Size(32, 37);
+      label_connected_client_count.TabIndex = 2;
+      label_connected_client_count.Text = "0";
+      // 
+      // label1
+      // 
+      label1.AutoSize = true;
+      label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+      label1.Location = new Point(12, 261);
+      label1.Name = "label1";
+      label1.Size = new Size(132, 37);
+      label1.TabIndex = 3;
+      label1.Text = "Server IP: ";
+      // 
+      // label_ip_addr
+      // 
+      label_ip_addr.AutoSize = true;
+      label_ip_addr.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+      label_ip_addr.Location = new Point(150, 261);
+      label_ip_addr.Name = "label_ip_addr";
+      label_ip_addr.Size = new Size(142, 37);
+      label_ip_addr.TabIndex = 4;
+      label_ip_addr.Text = "(unknown)";
+      label_ip_addr.TextAlign = ContentAlignment.TopRight;
+      // 
+      // notifyIcon
+      // 
+      notifyIcon.Icon = (Icon)resources.GetObject("notifyIcon.Icon");
+      notifyIcon.Text = "Phone Control";
+      notifyIcon.Visible = true;
+      notifyIcon.DoubleClick += notifyIcon_DoubleClick;
       // 
       // Form1
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(513, 450);
-      Controls.Add(startButton);
+      Controls.Add(label_ip_addr);
+      Controls.Add(label1);
+      Controls.Add(label_connected_client_count);
+      Controls.Add(label_connected_clients);
       Controls.Add(titleLabel);
       Name = "Form1";
       Text = "Form1";
+      Resize += Form1_Resize;
       ResumeLayout(false);
       PerformLayout();
     }
@@ -76,6 +130,10 @@
     private System.ComponentModel.BackgroundWorker NetworkComunicationWorker;
     private System.ComponentModel.BackgroundWorker ControlHandlerWorker;
     private Label titleLabel;
-    private Button startButton;
+    private Label label_connected_clients;
+    private Label label_connected_client_count;
+    private Label label1;
+    private Label label_ip_addr;
+    private NotifyIcon notifyIcon;
   }
 }

@@ -8,6 +8,7 @@ namespace PhoneControlServer.Controls.ControlHandlers
     private static readonly IControlHandler mouseMovement = new MouseMovementHandler();
     private static readonly IControlHandler mouseWheel = new MouseWheelHandler();
     private static readonly IControlHandler mouseButton = new MouseButtonHandler();
+    private static readonly IControlHandler special = new SpecialHandler();
 
     public static IControlHandler? GetControlHandler(ControlEventType eventType)
     {
@@ -17,6 +18,7 @@ namespace PhoneControlServer.Controls.ControlHandlers
         ControlEventType.Mouse => mouseMovement,
         ControlEventType.MouseWheel => mouseWheel,
         ControlEventType.MouseButton => mouseButton,
+        ControlEventType.Special => special,
         _ => null,
       };
     }

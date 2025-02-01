@@ -20,5 +20,6 @@ namespace PhoneControlServer.Controls.Classes
     Mouse = 2,
     MouseWheel = 3,
     MouseButton = 4,
+    Special = 5,
   }
 }

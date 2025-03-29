@@ -104,7 +104,7 @@
       // notifyIcon
       // 
       notifyIcon.Icon = (Icon)resources.GetObject("notifyIcon.Icon");
-      notifyIcon.Text = "Phone Control";
+      notifyIcon.Text = "Phone Control (0)";
       notifyIcon.Visible = true;
       notifyIcon.DoubleClick += notifyIcon_DoubleClick;
       // 
@@ -120,6 +120,7 @@
       Controls.Add(titleLabel);
       Name = "Form1";
       Text = "Form1";
+      Shown += Form1_Shown;
       Resize += Form1_Resize;
       ResumeLayout(false);
       PerformLayout();

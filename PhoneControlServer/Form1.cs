@@ -51,6 +51,7 @@ namespace PhoneControll
 
       ConnectedClients += change;
       label_connected_client_count.Text = $"{ConnectedClients}";
+      notifyIcon.Text = $"Phone Control ({ConnectedClients})";
     }
 
     private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace PhoneControll
       {
         Hide();  // Hide the window
       }
+    }
+
+    private void Form1_Shown(object sender, EventArgs e)
+    {
+      WindowState = FormWindowState.Minimized;
     }
   }
 }

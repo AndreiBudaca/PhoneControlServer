@@ -13,9 +13,10 @@ namespace PhoneControll.Controls
     [LibraryImport("user32.dll")]
     private static partial void mouse_event(uint dwFlags, uint dx, uint dy, int dwData, int dwExtraInfo);
 
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+    [LibraryImport("user32.dll", SetLastError = true)]
+    private static partial void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
+    private const uint KEYEVENTF_KEYDOWN = 0x0000;
     private const uint KEYEVENTF_KEYUP = 0x0002;
 
     public static void MoveMouse(MouseMovement movement)
@@ -56,15 +57,13 @@ namespace PhoneControll.Controls
 
     public static void PressKeyCombination(params byte[] keyFlags)
     {
-      // Press key down
       foreach (var keyFlag in keyFlags)
       {
-        keybd_event(keyFlag, 0, 0, 0);
+        keybd_event(keyFlag, 0, KEYEVENTF_KEYDOWN, 0);
       }
 
       Thread.Sleep(1);
 
-      // Press key up
       foreach (var keyFlag in keyFlags.Reverse())
       {
         keybd_event(keyFlag, 0, KEYEVENTF_KEYUP, 0);

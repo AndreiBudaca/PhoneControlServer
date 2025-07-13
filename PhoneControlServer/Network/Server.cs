@@ -1,24 +1,19 @@
 ﻿using System.Net.Sockets;
 using System.Net;
-using Makaretu.Dns;
 
 namespace PhoneControlServer.Network
 {
-  public class Server
+  public class Server(ushort port)
   {
+    private readonly TcpListener tcpListener = new TcpListener(IPAddress.Any, port);
+
     public void Start(Action<TcpClient>? onClientConnect)
     {
-      const int port = 34999;
-      var server = new TcpListener(IPAddress.Any, port);
-      server.Start();
-
-      var service = new ServiceProfile("phone.control", "_tcp", port);
-      var sd = new ServiceDiscovery();
-      sd.Advertise(service);
+      tcpListener.Start();
 
       while (true)
       {
-        var client = server.AcceptTcpClient();
+        var client = tcpListener.AcceptTcpClient();
         onClientConnect?.Invoke(client);
       }
     }

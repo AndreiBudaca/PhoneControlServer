@@ -31,13 +31,15 @@
       components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
       NetworkComunicationWorker = new System.ComponentModel.BackgroundWorker();
-      ControlHandlerWorker = new System.ComponentModel.BackgroundWorker();
       titleLabel = new Label();
       label_connected_clients = new Label();
       label_connected_client_count = new Label();
       label1 = new Label();
       label_ip_addr = new Label();
       notifyIcon = new NotifyIcon(components);
+      contextMenuStrip1 = new ContextMenuStrip(components);
+      closeToolStripMenuItem = new ToolStripMenuItem();
+      contextMenuStrip1.SuspendLayout();
       SuspendLayout();
       // 
       // NetworkComunicationWorker
@@ -45,10 +47,6 @@
       NetworkComunicationWorker.WorkerReportsProgress = true;
       NetworkComunicationWorker.DoWork += NetworkComunicationWorker_DoWork;
       NetworkComunicationWorker.ProgressChanged += NetworkComunicationWorker_ProgressChanged;
-      // 
-      // ControlHandlerWorker
-      // 
-      ControlHandlerWorker.DoWork += ControlHandlerWorker_DoWork;
       // 
       // titleLabel
       // 
@@ -103,10 +101,24 @@
       // 
       // notifyIcon
       // 
+      notifyIcon.ContextMenuStrip = contextMenuStrip1;
       notifyIcon.Icon = (Icon)resources.GetObject("notifyIcon.Icon");
       notifyIcon.Text = "Phone Control (0)";
       notifyIcon.Visible = true;
       notifyIcon.DoubleClick += notifyIcon_DoubleClick;
+      // 
+      // contextMenuStrip1
+      // 
+      contextMenuStrip1.Items.AddRange(new ToolStripItem[] { closeToolStripMenuItem });
+      contextMenuStrip1.Name = "contextMenuStrip1";
+      contextMenuStrip1.Size = new Size(181, 48);
+      // 
+      // closeToolStripMenuItem
+      // 
+      closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+      closeToolStripMenuItem.Size = new Size(180, 22);
+      closeToolStripMenuItem.Text = "Close";
+      closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
       // 
       // Form1
       // 
@@ -122,6 +134,7 @@
       Text = "Form1";
       Shown += Form1_Shown;
       Resize += Form1_Resize;
+      contextMenuStrip1.ResumeLayout(false);
       ResumeLayout(false);
       PerformLayout();
     }
@@ -129,12 +142,13 @@
     #endregion
 
     private System.ComponentModel.BackgroundWorker NetworkComunicationWorker;
-    private System.ComponentModel.BackgroundWorker ControlHandlerWorker;
     private Label titleLabel;
     private Label label_connected_clients;
     private Label label_connected_client_count;
     private Label label1;
     private Label label_ip_addr;
     private NotifyIcon notifyIcon;
+    private ContextMenuStrip contextMenuStrip1;
+    private ToolStripMenuItem closeToolStripMenuItem;
   }
 }

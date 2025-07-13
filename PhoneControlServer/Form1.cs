@@ -1,16 +1,24 @@
 using PhoneControlServer.Network;
 using System.Net.Sockets;
 using System.Net;
+using PhoneControlServer.Controls.Constants;
 
 namespace PhoneControll
 {
   public partial class Form1 : Form
   {
+    private readonly Server server;
+    private readonly MDNSAdvertiser advertiser;
+
     public int ConnectedClients { get; set; } = 0;
 
     public Form1()
     {
       InitializeComponent();
+
+      server = new Server(NetworkInteractionConstants.ServerPort);
+      advertiser = new MDNSAdvertiser();
+
       NetworkComunicationWorker.RunWorkerAsync();
 
       string hostName = Dns.GetHostName(); // Get the local host name
@@ -22,14 +30,9 @@ namespace PhoneControll
       }
     }
 
-    private void ControlHandlerWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-    {
-
-    }
-
     private void NetworkComunicationWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
     {
-      new Server().Start(client =>
+      server.Start(client =>
       {
         NetworkComunicationWorker.ReportProgress(0, 1);
         var clientWorker = new System.ComponentModel.BackgroundWorker();
@@ -42,6 +45,9 @@ namespace PhoneControll
 
         clientWorker.RunWorkerAsync();
       });
+
+      advertiser.StartAdvertising(NetworkInteractionConstants.InstanceName,
+        NetworkInteractionConstants.ServiceName, NetworkInteractionConstants.ServerPort);
     }
 
     private void NetworkComunicationWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -70,6 +76,11 @@ namespace PhoneControll
     private void Form1_Shown(object sender, EventArgs e)
     {
       WindowState = FormWindowState.Minimized;
+    }
+
+    private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Close();
     }
   }
 }

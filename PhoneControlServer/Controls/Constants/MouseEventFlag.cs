@@ -1,4 +1,4 @@
-﻿namespace PhoneControll.Controls.Constants
+﻿namespace PhoneControlServer.Controls.Constants
 {
   public static class MouseEventFlag
   {

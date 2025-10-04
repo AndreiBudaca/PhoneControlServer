@@ -1,4 +1,4 @@
-﻿using PhoneControll.Controls;
+﻿using Desktop.Robot;
 using PhoneControlServer.Controls.Constants;
 
 namespace PhoneControlServer.Controls.ControlHandlers
@@ -22,10 +22,10 @@ namespace PhoneControlServer.Controls.ControlHandlers
       switch (eventData)
       {
         case "left":
-          ControlsManager.PressKeyCombination(CustomKeyFlag.Windows, CustomKeyFlag.Shift, CustomKeyFlag.LeftArrow);
+          ControlsManager.PressKeyCombination(Key.Command, Key.Shift, Key.Left);
           break;
         case "right":
-          ControlsManager.PressKeyCombination(CustomKeyFlag.Windows, CustomKeyFlag.Shift, CustomKeyFlag.RightArrow);
+          ControlsManager.PressKeyCombination(Key.Command, Key.Shift, Key.Right);
           break;
       }
     }

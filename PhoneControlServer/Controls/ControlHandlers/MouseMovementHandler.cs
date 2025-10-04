@@ -1,5 +1,4 @@
-﻿using PhoneControll.Controls;
-using PhoneControll.Controls.Classes;
+﻿using PhoneControll.Controls.Classes;
 
 namespace PhoneControlServer.Controls.ControlHandlers
 {

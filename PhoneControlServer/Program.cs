@@ -1,7 +1,8 @@
+using PhoneControll;
 using System.Net;
 using System.Net.Sockets;
 
-namespace PhoneControll
+namespace PhoneControlServer
 {
   public static class Program
   {

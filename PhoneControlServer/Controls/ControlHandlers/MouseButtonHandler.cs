@@ -1,6 +1,4 @@
-﻿using PhoneControll.Controls;
-
-namespace PhoneControlServer.Controls.ControlHandlers
+﻿namespace PhoneControlServer.Controls.ControlHandlers
 {
   public class MouseButtonHandler : IControlHandler
   {

@@ -1,4 +1,4 @@
-﻿namespace PhoneControll.Controls.Classes
+﻿namespace PhoneControlServer.Controls.Classes
 {
   public class MouseMovement
   {

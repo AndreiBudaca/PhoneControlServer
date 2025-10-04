@@ -1,7 +1,7 @@
 ﻿using Desktop.Robot;
 using Desktop.Robot.Clicks;
 using Desktop.Robot.Extensions;
-using PhoneControll.Controls.Classes;
+using PhoneControlServer.Controls.Classes;
 
 namespace PhoneControlServer.Controls
 {
